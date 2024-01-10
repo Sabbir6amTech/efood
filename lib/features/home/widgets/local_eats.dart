@@ -71,7 +71,7 @@ class _LocalEatsWidgetState extends State<LocalEatsWidget> {
       shape:const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-
+      backgroundColor: Colors.grey.shade200,
       isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {

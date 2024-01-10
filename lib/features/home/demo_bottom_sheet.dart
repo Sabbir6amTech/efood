@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_restaurant/common/models/image_data.dart';
+import 'package:flutter_restaurant/features/home/widgets/add_ons_checkbox.dart';
 import 'package:flutter_restaurant/features/home/widgets/bottam_radio_button.dart';
 import 'package:flutter_restaurant/localization/language_constrants.dart';
 
 import 'package:flutter_restaurant/utill/styles.dart';
+import 'package:intl/intl.dart';
 
 import '../../utill/images.dart';
+import 'widgets/bottom_checkbox_widget.dart';
 
 class DemoBottomSheet extends StatelessWidget {
   final ImageData imageData;
@@ -174,9 +177,123 @@ class DemoBottomSheet extends StatelessWidget {
                       )
                     ],
                   ),
-                  ModalSheetRadioButton(onChanged: (_) {
-                  },)
-                  
+                  ModalSheetRadioButton(
+                    onChanged: (_) {},
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: 350,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18.0, top: 10),
+                    child: Text(
+                      getTranslated('salad', context)!,
+                      style: rubikMedium,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18.0, top: 10),
+                    child: Text(
+                      getTranslated('select_minimum', context)!,
+                      style: robotoRegular,
+                    ),
+                  ),
+                  // here i want to use this widget
+                  BootomSheetCheckBox(
+                    onChanged: (p0) {},
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 360,
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 18.0, top: 10),
+                    child: Text(
+                      getTranslated('addons', context)!,
+                      style: rubikMedium,
+                    ),
+                  ),
+                  AddOnsCheckBox(
+                    onChanged: (p0) {},
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 360,
+              height: 110,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 18.0, top: 10),
+                        child: Text(
+                          'Total Price',
+                          style:
+                              TextStyle(color: Colors.redAccent, fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 18.0, top: 10),
+                        child: Text(
+                          '\$ 254',
+                          style:
+                              TextStyle(color: Colors.redAccent, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(),
+                      Container(
+                        width: 194,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.redAccent,
+                        ),
+                        child: Center(
+                            child: Text(
+                          'Add to Cart',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )),
+                      )
+                    ],
+                  )
                 ],
               ),
             )

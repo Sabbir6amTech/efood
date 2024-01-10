@@ -14,6 +14,9 @@
   "select_one" : "Select One",
   "small": "Small",
   "medium" : "Medium",
-  "large" : "Large"
+  "large" : "Large",
+  "salad" :"Salad",
+  "select_minimum": "Select minimum 2 & up to 4",
+  "addons": "Addons"
 
 }
