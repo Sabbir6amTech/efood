@@ -72,6 +72,7 @@ class Images {
   static const String poster2 = 'assets/image/poster2.jpg';
   static const String poster3 = 'assets/image/poster3.jpeg';
   static const String poster = 'assets/image/poster.png';
+  static const String descriptionleaf = 'assets/image/descriptionleaf.png';
 
 /// image for dish discoveries
   static const String burger = 'assets/image/burger.png';

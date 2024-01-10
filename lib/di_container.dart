@@ -25,7 +25,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SplashRepo(sharedPreferences: sl(), dioClient: sl()));
   sl.registerLazySingleton(() => LanguageRepo());
   sl.registerLazySingleton(() => OnBoardingRepo(dioClient: sl()));
-  sl.registerLazySingleton(() => ImageRipo(dioClient: sl()));
+  sl.registerLazySingleton(() => DishWidgetRepo(dioClient: sl()));
 
   // Provider
   sl.registerFactory(() => ThemeProvider(sharedPreferences: sl()));

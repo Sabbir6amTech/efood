@@ -3,5 +3,17 @@
   "lets_eat": "Local eat",
   "discover_all": "discover all",
   "today_special" : "Today's Special",
-  "dish_discoveries": "Dish Discoveries"
+  "dish_discoveries": "Dish Discoveries",
+  "local_eats" : "Local Eats",
+  "discover_all": "Discover All",
+  "description": "Description",
+  "non_veg": "Non Veg",
+  "dummy_description" : "Ramen noodles, half boiled egg, deep fried onion rings\nsalted beet root slices, spanich",
+  "size": "Size",
+  "required" : "Required",
+  "select_one" : "Select One",
+  "small": "Small",
+  "medium" : "Medium",
+  "large" : "Large"
+
 }

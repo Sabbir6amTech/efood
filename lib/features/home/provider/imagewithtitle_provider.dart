@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../domain/models/dish_discoveries_model.dart';
 
 class ImageWithTitleProvider extends ChangeNotifier {
-  final ImageRipo imageRipo;
+  final DishWidgetRepo imageRipo;
 
   ImageWithTitleProvider({required this.imageRipo});
 

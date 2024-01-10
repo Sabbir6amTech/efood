@@ -1,40 +1,48 @@
 import 'package:flutter/material.dart';
-import '../models/image_data.dart';
+import 'package:flutter_restaurant/common/models/image_data.dart';
+import 'package:flutter_restaurant/common/widgets/custom_food_image.dart';
+import 'package:flutter_restaurant/utill/dimensions.dart';
+import 'package:flutter_restaurant/utill/styles.dart';
 
-class CustomFoodImage extends StatelessWidget {
-  final ImageData myFoodIMageList;
-  Function functionality;
-  Function buttomSheetFunctionality;
+import 'local_eats_bootm_sheet.dart';
 
-  CustomFoodImage({
-    required this.myFoodIMageList,
+class MyLocalEatFoodWidget extends StatefulWidget {
+  final ImageData myFoodImageList;
+  final Function(ImageData) functionality;
+
+  const MyLocalEatFoodWidget({
+    required this.myFoodImageList,
     required this.functionality,
-    required this.buttomSheetFunctionality,
   });
 
   @override
+  State<MyLocalEatFoodWidget> createState() => _MyLocalEatFoodWidgetState();
+}
+
+class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
+    return Padding(
+      padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
       child: Card(
+        surfaceTintColor: Colors.white,
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
               alignment: Alignment.topLeft,
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(10)),
                   child: InkWell(
-                    onTap: () {
-
-                    },
+                    onTap: () => widget.functionality(widget.myFoodImageList),
                     child: Image.asset(
-                      myFoodIMageList.imagePath,
+                      widget.myFoodImageList.imagePath,
                       fit: BoxFit.cover,
                       height: 145,
                     ),
@@ -63,14 +71,19 @@ class CustomFoodImage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: -1,
-                  left: 0,
+                  bottom: -10,
+                  left: 10,
                   child: Container(
                     width: 100,
+                    height: 40,
                     decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(50.0),
-                        color: Colors.white),
+                      shape: BoxShape.rectangle,
+                      boxShadow: [
+                        BoxShadow(color: Colors.redAccent)
+                      ],
+                      borderRadius: BorderRadius.circular(50.0),
+                      color: Colors.white,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,11 +92,11 @@ class CustomFoodImage extends StatelessWidget {
                           height: 24,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors
-                                .redAccent, // Background color of the circle
+                            color: Colors.redAccent,
                           ),
                           child: InkWell(
-                            onTap: () => functionality(),
+                            onTap: () => widget
+                                .functionality(widget.myFoodImageList),
                             child: const Icon(
                               Icons.add,
                               size: 15,
@@ -109,9 +122,10 @@ class CustomFoodImage extends StatelessWidget {
                   child: IconButton(
                     onPressed: () {},
                     icon: Container(
+
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.redAccent.withOpacity(0.4),
+                        color: Colors.black.withOpacity(0.4),
                       ),
                       child: const Icon(
                         Icons.favorite,
@@ -129,7 +143,7 @@ class CustomFoodImage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    myFoodIMageList.title,
+                    widget.myFoodImageList.title,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -142,14 +156,14 @@ class CustomFoodImage extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.yellow),
                       const SizedBox(width: 4),
                       Text(
-                        '${myFoodIMageList.rating}',
+                        '${widget.myFoodImageList.rating}',
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$ ${myFoodIMageList.price.toStringAsFixed(2)}',
+                    '\$ ${widget.myFoodImageList.price.toStringAsFixed(2)}',
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

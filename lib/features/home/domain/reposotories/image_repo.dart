@@ -1,10 +1,10 @@
 import 'package:flutter_restaurant/data/datasource/remote/dio/dio_client.dart';
 import 'package:flutter_restaurant/utill/images.dart';
 
-class ImageRipo {
+class DishWidgetRepo {
   final DioClient? dioClient;
 
-  ImageRipo({required this.dioClient});
+  DishWidgetRepo({required this.dioClient});
 
   final List<Map<String, dynamic>> _imageWithTitleList = [
     {"image": Images.burger, "title": "Burger"},

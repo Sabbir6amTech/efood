@@ -31,10 +31,10 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
       children: [
         if (isBackgroundVisible)
           AnimatedOpacity(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             opacity: (searchBarOffset / 100),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.red, // Your desired background color
               ),
               child: const Padding(

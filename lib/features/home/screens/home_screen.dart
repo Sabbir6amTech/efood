@@ -5,6 +5,8 @@ import 'package:flutter_restaurant/common/widgets/custom_dot_indicator.dart';
 import 'package:flutter_restaurant/common/widgets/custom_food_image.dart';
 import 'package:flutter_restaurant/common/widgets/sliver_app_bar.dart';
 import 'package:flutter_restaurant/features/home/provider/imagewithtitle_provider.dart';
+import 'package:flutter_restaurant/features/home/widgets/my_local_eat_food_widget.dart';
+import 'package:flutter_restaurant/features/home/widgets/local_eats.dart';
 import 'package:flutter_restaurant/features/home/widgets/today_spacial_widget.dart';
 import 'package:flutter_restaurant/localization/language_constrants.dart';
 import 'package:flutter_restaurant/utill/dimensions.dart';
@@ -27,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> images2 = [Images.poster1, Images.poster2, Images.poster];
 
   final List<ImageData> foodItems = [
-    ImageData(imagePath: Images.cake, title: 'Cake'),
-    ImageData(imagePath: Images.chicken, title: 'fish'),
-    ImageData(imagePath: Images.lunch1, title: 'coffee'),
-    ImageData(imagePath: Images.chinese, title: 'setmenu'),
+    ImageData(imagePath: Images.cake, title: 'Cake',rating: 4.0,price: 130.0),
+    ImageData(imagePath: Images.chicken, title: 'fish',rating: 4.0,price: 130.0),
+    ImageData(imagePath: Images.lunch1, title: 'coffee',rating: 4.0,price: 130.0),
+    ImageData(imagePath: Images.chinese, title: 'setmenu',rating: 4.0,price: 130.0),
     // Add more items as needed
   ];
 
@@ -42,6 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final page_controller = PageController();
 
   void addFavoriteItem() {}
+
+  void buttomSheetOpen(){
+
+  }
 
   @override
   void initState() {
@@ -96,9 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
           slivers: [
             SliverToBoxAdapter(
                 child: TodaySpacialWidget(images: images, images2: images2)),
-            // ------------------- carousel slider image end------------------------
 
-            //------------------ dish discovers start-------------------------
             SliverToBoxAdapter(
               child: Text(
                 getTranslated('dish_discoveries', context)!,
@@ -116,14 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, imageWithTitleProvider, _) {
                     print('image length ${imageWithTitleProvider.imageWithTitleList?.length}');
 
-                    return imageWithTitleProvider.imageWithTitleList == null ? const CircularProgressIndicator() :  Swiper(
-                      outer: true,
+                    return imageWithTitleProvider.imageWithTitleList == null
+                        ? Center(child: CircularProgressIndicator()) // Display a loading indicator when the list is null
+                        : Swiper(
+                    outer: true,
                       itemBuilder: (context, index) {
+                        final listLength = imageWithTitleProvider.imageWithTitleList!.length;
                         int startIndex = index * 8;
                         int endIndex = startIndex + 8;
-                        endIndex = endIndex > imageWithTitleProvider.imageWithTitleList!.length
-                            ? imageWithTitleProvider.imageWithTitleList!.length
-                            : endIndex;
+                        endIndex = endIndex > listLength ? listLength : endIndex;
                         return GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -169,43 +174,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            //------------------ dish discovers end-------------------------
-
-            //------------------------ local eats start----------------
-
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      getTranslated('lets_eat', context)!,
-                      style: rubikBold,
-                    ),
-                    TextButton(
-                        onPressed: () {},
-                        child: Text(getTranslated('discover_all', context)!))
-                  ],
-                ),
-              ),
+              child: LocalEatsWidget(),
             ),
 
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: foodItems.length,
-                  itemBuilder: (context, index) {
-                    return CustomFoodImage(
-                      myFoodIMageList: foodItems[index],
-                      functionality: addFavoriteItem,
-                    );
-                  },
-                ),
-              ),
-            ),
           ],
         ),
       ),
