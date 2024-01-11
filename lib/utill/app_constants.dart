@@ -64,6 +64,7 @@ class AppConstants {
   static const String guestTrackUrl  = '/api/v1/customer/order/guest-track';
   static const String guestOrderDetailsUrl  = '/api/v1/customer/order/details-guest';
   static const String firebaseAuthVerify = '/api/v1/auth/firebase-auth-verify';
+  static const String latestProduct = '/api/v1/products/latest';
 
 
 

@@ -10,6 +10,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_restaurant/features/home/provider/imagewithtitle_provider.dart';
+import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/helper/notification_helper.dart';
 import 'package:flutter_restaurant/helper/responsive_helper.dart';
 import 'package:flutter_restaurant/helper/router_helper.dart';
@@ -108,6 +109,7 @@ Future<void> main() async {
       ChangeNotifierProvider(
           create: (context) => di.sl<LocalizationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ImageWithTitleProvider>()),
+      ChangeNotifierProvider(create: (context) => di.sl<ProductProvider>(),),
 
     ],
     child: MyApp(orderId: orderID, isWeb: !kIsWeb, route: path),

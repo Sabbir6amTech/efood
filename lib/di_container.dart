@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_restaurant/common/models/product_model.dart';
 import 'package:flutter_restaurant/features/home/domain/reposotories/image_repo.dart';
+import 'package:flutter_restaurant/features/home/domain/reposotories/product_repo.dart';
 import 'package:flutter_restaurant/features/home/provider/imagewithtitle_provider.dart';
+import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/features/language/domain/reposotories/language_repo.dart';
 import 'package:flutter_restaurant/features/onboarding/domain/reposotories/onboarding_repo.dart';
 import 'package:flutter_restaurant/features/splash/domain/reposotories/splash_repo.dart';
@@ -26,6 +29,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LanguageRepo());
   sl.registerLazySingleton(() => OnBoardingRepo(dioClient: sl()));
   sl.registerLazySingleton(() => DishWidgetRepo(dioClient: sl()));
+  sl.registerLazySingleton(() => ProductRepo(dioClient: sl()));
 
   // Provider
   sl.registerFactory(() => ThemeProvider(sharedPreferences: sl()));
@@ -34,6 +38,7 @@ Future<void> init() async {
   sl.registerFactory(() => LanguageProvider(languageRepo: sl()));
   sl.registerFactory(() => OnBoardingProvider(onboardingRepo: sl(), sharedPreferences: sl()));
   sl.registerFactory(() => ImageWithTitleProvider(imageRipo: sl()));
+  sl.registerFactory(() => ProductProvider(productRepo: sl()));
 
 
   // External

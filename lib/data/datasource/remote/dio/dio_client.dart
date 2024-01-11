@@ -35,7 +35,7 @@ class DioClient {
       ..options.headers = {
 
         'Content-Type': 'application/json; charset=UTF-8',
-        'branch-id': '${sharedPreferences.getInt(AppConstants.branch)}',
+        'branch-id': '1',
         'X-localization': sharedPreferences.getString(AppConstants.languageCode)
             ?? AppConstants.languages[0].languageCode,
         'Authorization': 'Bearer $getToken',

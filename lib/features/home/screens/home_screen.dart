@@ -5,6 +5,7 @@ import 'package:flutter_restaurant/common/widgets/custom_dot_indicator.dart';
 import 'package:flutter_restaurant/common/widgets/custom_food_image.dart';
 import 'package:flutter_restaurant/common/widgets/sliver_app_bar.dart';
 import 'package:flutter_restaurant/features/home/provider/imagewithtitle_provider.dart';
+import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/features/home/widgets/my_local_eat_food_widget.dart';
 import 'package:flutter_restaurant/features/home/widgets/local_eats.dart';
 import 'package:flutter_restaurant/features/home/widgets/today_spacial_widget.dart';
@@ -52,8 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
-    imageWithTitleProvider.getBannerImage();
+    // final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
+    // imageWithTitleProvider.getBannerImage();
+
+    ProductProvider productProvider = Provider.of<ProductProvider>(context,listen: false);
+    productProvider.getProductList();
 
     _scrollController.addListener(_onScroll);
     page_controller.addListener(() {
@@ -79,8 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-   //---------------------------
-    // --------------------------
 
 
     return Scaffold(
@@ -121,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     print('image length ${imageWithTitleProvider.imageWithTitleList?.length}');
 
                     return imageWithTitleProvider.imageWithTitleList == null
-                        ? Center(child: CircularProgressIndicator()) // Display a loading indicator when the list is null
+                        ? const Center(child: CircularProgressIndicator()) // Display a loading indicator when the list is null
                         : Swiper(
                     outer: true,
                       itemBuilder: (context, index) {

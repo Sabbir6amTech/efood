@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_restaurant/common/models/image_data.dart';
+import 'package:flutter_restaurant/common/models/config_model.dart';
+import 'package:flutter_restaurant/common/models/product_model.dart';
+import 'package:flutter_restaurant/common/widgets/custom_image_widget.dart';
 import 'package:flutter_restaurant/features/home/widgets/add_ons_checkbox.dart';
 import 'package:flutter_restaurant/features/home/widgets/bottam_radio_button.dart';
+import 'package:flutter_restaurant/features/splash/providers/splash_provider.dart';
 import 'package:flutter_restaurant/localization/language_constrants.dart';
-
 import 'package:flutter_restaurant/utill/styles.dart';
-import 'package:intl/intl.dart';
-
+import 'package:provider/provider.dart';
 import '../../utill/images.dart';
 import 'widgets/bottom_checkbox_widget.dart';
 
 class DemoBottomSheet extends StatelessWidget {
-  final ImageData imageData;
+  final Product? product;
 
-  DemoBottomSheet({Key? key, required this.imageData}) : super(key: key);
+  const DemoBottomSheet({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +27,9 @@ class DemoBottomSheet extends StatelessWidget {
               children: [
                 Container(
                   height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(imageData.imagePath),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0))),
-                  // Display food information
+                  child: CustomImageWidget(
+                      image:
+                      '${Provider.of<SplashProvider>(context, listen: false).baseUrls?.productImageUrl}/${product?.image}'),
                 ),
                 Positioned(
                   top: 0,
@@ -72,18 +66,14 @@ class DemoBottomSheet extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                imageData.title,
-                                style: rubikMedium,
-                              ),
-                              Text('${imageData.rating}'),
+                              Text('${product?.rating}'),
                             ],
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Text(
-                            '${imageData.price}',
+                            '${product?.price}',
                             style: rubikMedium,
                           ),
                         )
@@ -102,7 +92,7 @@ class DemoBottomSheet extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 18.0),
                   child: Text(
-                    getTranslated('description', context)!,
+                    '${product?.name}',
                     style: rubikRegular,
                   ),
                 ),

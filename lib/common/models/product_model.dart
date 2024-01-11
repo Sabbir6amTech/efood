@@ -57,7 +57,6 @@ class Product {
   String? _updatedAt;
   List<String>? _attributes;
   List<CategoryId>? _categoryIds;
-  List<ChoiceOption>? _choiceOptions;
   double? _discount;
   String? _discountType;
   String? _taxType;
@@ -82,7 +81,6 @@ class Product {
         String? updatedAt,
         List<String>? attributes,
         List<CategoryId>? categoryIds,
-        List<ChoiceOption>? choiceOptions,
         double? discount,
         String? discountType,
         String? taxType,
@@ -106,7 +104,6 @@ class Product {
     _updatedAt = updatedAt;
     _attributes = attributes;
     _categoryIds = categoryIds;
-    _choiceOptions = choiceOptions;
     _discount = discount;
     _discountType = discountType;
     _taxType = taxType;
@@ -131,7 +128,6 @@ class Product {
   String? get updatedAt => _updatedAt;
   List<String>? get attributes => _attributes;
   List<CategoryId>? get categoryIds => _categoryIds;
-  // List<ChoiceOption> get choiceOptions => _choiceOptions;
   double? get discount => _discount;
   String? get discountType => _discountType;
   String? get taxType => _taxType;
@@ -181,12 +177,7 @@ class Product {
         _categoryIds!.add(CategoryId.fromJson(v));
       });
     }
-    if (json['choice_options'] != null) {
-      _choiceOptions = [];
-      json['choice_options'].forEach((v) {
-        _choiceOptions!.add(ChoiceOption.fromJson(v));
-      });
-    }
+
     _discount = json['discount'].toDouble();
     _discountType = json['discount_type'];
     _taxType = json['tax_type'];
@@ -235,10 +226,6 @@ class Product {
     data['attributes'] = _attributes;
     if (_categoryIds != null) {
       data['category_ids'] = _categoryIds!.map((v) => v.toJson()).toList();
-    }
-    if (_choiceOptions != null) {
-      data['choice_options'] =
-          _choiceOptions!.map((v) => v.toJson()).toList();
     }
     data['discount'] = _discount;
     data['discount_type'] = _discountType;
