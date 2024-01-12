@@ -135,6 +135,7 @@ class Product {
   List<Rating>? get rating => _rating;
   String? productType;
   BranchProduct? get branchProduct => _branchProduct;
+  double? get mainPrice => _mainPrice;
 
 
   Product.fromJson(Map<String, dynamic> json) {

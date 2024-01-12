@@ -25,25 +25,28 @@ class DemoBottomSheet extends StatelessWidget {
           child: Column(children: [
             Stack(
               children: [
-                Container(
-                  height: 200,
+                ClipRRect(
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
                   child: CustomImageWidget(
-                      image:
-                      '${Provider.of<SplashProvider>(context, listen: false).baseUrls?.productImageUrl}/${product?.image}'),
+                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls?.productImageUrl}/${product?.image}'),
                 ),
                 Positioned(
-                  top: 0,
+                  top: 10,
                   right: 10,
                   child: Container(
+                    width: 50,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.white.withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
+                    child: Center(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const  Icon(
+                          Icons.favorite,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -66,24 +69,27 @@ class DemoBottomSheet extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('${product?.rating}'),
+                              Text('${product?.name}',style: rubikMedium,),
+                             // Text('${product?.rating}',style: rubikMedium,),
+
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 20.0),
+                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                           child: Text(
-                            '${product?.price}',
-                            style: rubikMedium,
+                            '\$ ${product?.price}',
+                            style: rubikMedium,  // Apply highlighting to price if mainPrice is greater than or equal to price
                           ),
-                        )
+                        ),
+
                       ],
                     ),
                   ),
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
@@ -93,7 +99,7 @@ class DemoBottomSheet extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 18.0),
                   child: Text(
                     '${product?.name}',
-                    style: rubikRegular,
+                    style: rubikBold,
                   ),
                 ),
                 Padding(
@@ -117,7 +123,7 @@ class DemoBottomSheet extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Text(getTranslated('dummy_description', context)!),
+                  child: Text('${product?.description}'),
                 )),
             Container(
               width: 350,
@@ -228,7 +234,7 @@ class DemoBottomSheet extends StatelessWidget {
                     ),
                   ),
                   AddOnsCheckBox(
-                    onChanged: (p0) {},
+                    onChanged: (_) {},
                   ),
                 ],
               ),

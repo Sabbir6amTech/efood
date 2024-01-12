@@ -5,6 +5,7 @@ const rubikRegular = TextStyle(
   fontFamily: 'Rubik',
   fontSize: Dimensions.fontSizeDefault,
   fontWeight: FontWeight.w400,
+  color: Colors.white
 );
 
 const rubikMedium = TextStyle(

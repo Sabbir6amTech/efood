@@ -29,61 +29,60 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
 
   //late final Product product;
 
- // void openFoodDetailsModal() {
- //    showModalBottomSheet(
- //      shape:const RoundedRectangleBorder(
- //        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
- //      ),
- //      backgroundColor: Colors.grey.shade200,
- //      isScrollControlled: true,
- //      context: context,
- //      builder: (BuildContext context) {
- //        return Consumer<ProductProvider>(
- //          builder: (context, productProvider, child) {
- //            return SizedBox(
- //              height: MediaQuery.of(context).size.height * 0.8,
- //              child: ListView.builder(
- //                itemCount: 5,
- //                itemBuilder: (context, index) {
- //                  return DemoBottomSheet(product: productProvider.productList?[index]);
- //                },
- //              ),
- //            );
- //          },
- //        );
- //      },
- //    );
- //  }
+  void openFoodDetailsModal(BuildContext context, Product? selectedProduct) {
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.grey.shade200,
+      isScrollControlled: true,
+      isDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return DemoBottomSheet(product: selectedProduct);
+      },
+    );
+
+    productProvider.getProductList();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
+    return GestureDetector(
+      onTap: () {
+        openFoodDetailsModal(context, widget.product);
+      },
       child: Card(
         surfaceTintColor: Colors.white,
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+        shape:const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
         ),
         child: SizedBox(
-          width: 160,
-          height: 240,
+          height: 235,
+          width: 200,
           child: Wrap(
             children: [
               Card(
                 child: Stack(
                   alignment: Alignment.topLeft,
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(10)),
-                      child: InkWell(
-                        onTap: (){
-                          //penFoodDetailsModal();
-                          },
-                        child: CustomImageWidget(
-                            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls?.productImageUrl}/${widget.product?.image}',
-                          fit: BoxFit.cover,
+                    SizedBox(
+                      height: 145,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(10)),
+                        child: InkWell(
+                          onTap: (){
+                            //penFoodDetailsModal();
+                            },
+                          child: CustomImageWidget(
+                              image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls?.productImageUrl}/${widget.product?.image}',
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -91,20 +90,17 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                       top: 12,
                       left: 12,
                       child: Container(
-                        width: 80,
-                        height: 40,
+                        width: 62,
+                        height: 21,
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30.0),
-                          color: Colors.redAccent.withOpacity(0.3),
+                          color: Colors.redAccent.withOpacity(0.6),
                         ),
                         child:  Center(
                           child: Text(
                             '${widget.product?.discount}',
-                            style:const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: rubikRegular
                           ),
                         ),
                       ),
@@ -170,6 +166,9 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                         ),
                       ),
                     ),
+
+
+
                   ],
                 ),
               ),
@@ -178,15 +177,15 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                 child: SizedBox(
                   width: 154,
                   child: Column(
-                   mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                      '${widget.product?.name}',
+                        '${widget.product?.name}',
                         style: rubikMedium,
                       ),
                       const SizedBox(height: 4),
-                     /* const Row(
+                      /* const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           //const Icon(Icons.star, color: Colors.yellow),
@@ -199,8 +198,8 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                       ),*/
                       const SizedBox(height: 4),
                       Text(
-                        '\$ ${widget.product?.price}',
-                        style: robotoRegular
+                          '\$ ${widget.product?.price}',
+                          style: robotoRegular
                       ),
                     ],
                   ),

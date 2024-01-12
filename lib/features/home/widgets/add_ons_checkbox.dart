@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_restaurant/common/models/product_model.dart';
+import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/utill/styles.dart';
 
 class AddOnsCheckBox extends StatefulWidget {
   final Function(List<Map<String, dynamic>>) onChanged;
+  final ProductProvider? productProvider;
 
-  AddOnsCheckBox({required this.onChanged});
+  AddOnsCheckBox({required this.onChanged, this.productProvider});
 
   @override
   State<AddOnsCheckBox> createState() => _AddOnsCheckBoxState();
@@ -12,20 +16,23 @@ class AddOnsCheckBox extends StatefulWidget {
 
 class _AddOnsCheckBoxState extends State<AddOnsCheckBox> {
 
-  List<Map<String, dynamic>> items = [
-    {'name': 'Pepsi', 'price': 46},
-    {'name': 'Chicken Fry', 'price': 46},
-    {'name': 'Sause', 'price': 46},
+  @override
+  void initState() {
+    super.initState();
+    widget.productProvider?.getProductList();
+    widget.productProvider?.getAddOnsList();
+  }
 
-  ];
+  List<Map<String, dynamic>> items = [];
 
-  List<Map<String, dynamic>> _selectedItems = [];
+
+  final List<Map<String, dynamic>> _selectedItems = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: items.map((item) {
+      children: (widget.productProvider?.addOnsList ?? []).map((addOn) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,21 +40,27 @@ class _AddOnsCheckBoxState extends State<AddOnsCheckBox> {
               children: [
                 Checkbox(
                   activeColor: Colors.redAccent,
-                  value: _selectedItems.contains(item),
+                  value: _selectedItems.contains(addOn),
                   onChanged: (checked) {
                     setState(() {
                       if (checked != null && checked) {
-                        _selectedItems.add(item);
+                        _selectedItems.add({
+                          'id': addOn.id,
+                          'name': addOn.name,
+                          'price': addOn.price,
+                          'created_at': addOn.createdAt,
+                          'updated_at': addOn.updatedAt,
+                          'tax': addOn.tax,
+                        });
                       } else {
-                        _selectedItems.remove(item);
-                      }
+                        _selectedItems.removeWhere((item) => item['id'] == addOn.id);                      }
                       widget.onChanged(_selectedItems);
                     });
                   },
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  item['name'].toString(),
+                  addOn.name.toString(),
                   style: rubikRegular,
                 ),
               ],
@@ -55,7 +68,7 @@ class _AddOnsCheckBoxState extends State<AddOnsCheckBox> {
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Text(
-                '\$${item['price']}',
+                '\$${addOn.price}',
                 style: robotoRegular,
               ),
             ),
@@ -64,4 +77,5 @@ class _AddOnsCheckBoxState extends State<AddOnsCheckBox> {
       }).toList(),
     );
   }
+
 }

@@ -53,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
-    // imageWithTitleProvider.getBannerImage();
+     final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
+    imageWithTitleProvider.getBannerImage();
 
     ProductProvider productProvider = Provider.of<ProductProvider>(context,listen: false);
     productProvider.getProductList();
