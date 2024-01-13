@@ -14,9 +14,14 @@ class ProductProvider extends ChangeNotifier{
 
   List<Product>? _productList;
 
-  List<AddOns>? _addOnsList;
+  int? _selectedLocalEatsItem;
 
-  List<AddOns>? get addOnsList => _addOnsList;
+
+  int? get selectedLocalEatsItem => _selectedLocalEatsItem;
+
+  set selectedLocalEatsItem(int? value) {
+    _selectedLocalEatsItem = value;
+  }
 
   List<Product>? get productList => _productList;
 
@@ -33,17 +38,6 @@ class ProductProvider extends ChangeNotifier{
     }
   }
 
-  Future<void> getAddOnsList() async{
-    if(_addOnsList == null){
-      ApiResponseModel apiResponseModel = await productRepo.getProductList();
-      if(apiResponseModel.response != null && apiResponseModel.response?.statusCode == 200){
-        _addOnsList = [];
-        apiResponseModel.response!.data['products'].forEach((addon) => _addOnsList!.add(AddOns.fromJson(addon)));
-        notifyListeners();
-      }else{
-        ApiCheckerHelper.checkApi(apiResponseModel);
-      }
-    }
-  }
+
 
 }

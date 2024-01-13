@@ -43,6 +43,7 @@ class _LocalEatsWidgetState extends State<LocalEatsWidget> {
                 height: 250,
                 child: ListView.builder(
                   itemBuilder: (context, index) {
+                    productProvider.selectedLocalEatsItem = index;
                     return MyLocalEatFoodWidget(product: productProvider.productList?[index]);
                   },
                   itemCount: productProvider.productList?.length,

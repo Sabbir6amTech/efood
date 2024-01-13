@@ -25,7 +25,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
   List<String> images = [Images.poster, Images.poster1, Images.poster2];
   List<String> images2 = [Images.poster1, Images.poster2, Images.poster];
 
@@ -50,36 +49,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  // }
+
   @override
   void initState() {
     super.initState();
-     final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
+    final imageWithTitleProvider = Provider.of<ImageWithTitleProvider>(context,listen: false);
     imageWithTitleProvider.getBannerImage();
 
     ProductProvider productProvider = Provider.of<ProductProvider>(context,listen: false);
     productProvider.getProductList();
-
-    _scrollController.addListener(_onScroll);
-    page_controller.addListener(() {
-      setState(() {
-        _currentIndex = page_controller.page!.round();
-      });
-    });
+    // _scrollController.addListener(_onScroll);
+    // page_controller.addListener(() {
+    //   setState(() {
+    //     _currentIndex = page_controller.page!.round();
+    //   });
+    // });
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
+    // _scrollController.removeListener(_onScroll);
+    // _scrollController.dispose();
     super.dispose();
   }
 
-  void _onScroll() {
-    final offset = _scrollController.offset;
-    setState(() {
-      _isSearchBarVisible = offset > 0;
-    });
-  }
+  // void _onScroll() {
+  //   final offset = _scrollController.offset;
+  //   setState(() {
+  //     _isSearchBarVisible = offset > 0;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

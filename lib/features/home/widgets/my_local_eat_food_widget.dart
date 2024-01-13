@@ -10,7 +10,6 @@ import 'package:flutter_restaurant/features/splash/providers/splash_provider.dar
 import 'package:flutter_restaurant/utill/dimensions.dart';
 import 'package:flutter_restaurant/utill/styles.dart';
 import 'package:provider/provider.dart';
-
 import 'local_eats_bootm_sheet.dart';
 
 class MyLocalEatFoodWidget extends StatefulWidget {
@@ -41,7 +40,7 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
       isDismissible: true,
       context: context,
       builder: (BuildContext context) {
-        return DemoBottomSheet(product: selectedProduct);
+        return SizedBox(height: 700,child: DemoBottomSheet(product: selectedProduct));
       },
     );
 
@@ -51,7 +50,7 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         openFoodDetailsModal(context, widget.product);
       },

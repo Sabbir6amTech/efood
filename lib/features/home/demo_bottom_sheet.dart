@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_restaurant/common/models/config_model.dart';
 import 'package:flutter_restaurant/common/models/product_model.dart';
 import 'package:flutter_restaurant/common/widgets/custom_image_widget.dart';
+import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/features/home/widgets/add_ons_checkbox.dart';
 import 'package:flutter_restaurant/features/home/widgets/bottam_radio_button.dart';
 import 'package:flutter_restaurant/features/splash/providers/splash_provider.dart';
@@ -11,14 +12,19 @@ import 'package:provider/provider.dart';
 import '../../utill/images.dart';
 import 'widgets/bottom_checkbox_widget.dart';
 
-class DemoBottomSheet extends StatelessWidget {
+class DemoBottomSheet extends StatefulWidget {
   final Product? product;
 
   const DemoBottomSheet({Key? key, required this.product}) : super(key: key);
 
   @override
+  State<DemoBottomSheet> createState() => _DemoBottomSheetState();
+}
+
+class _DemoBottomSheetState extends State<DemoBottomSheet> {
+  int currentIndex = 0; // Assuming this is the current index of the widget
+  @override
   Widget build(BuildContext context) {
-    int quantity = 1;
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return SingleChildScrollView(
@@ -26,9 +32,12 @@ class DemoBottomSheet extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(20.0),topLeft: Radius.circular(20.0)),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20.0),
+                      topLeft: Radius.circular(20.0)),
                   child: CustomImageWidget(
-                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls?.productImageUrl}/${product?.image}'),
+                      image:
+                          '${Provider.of<SplashProvider>(context, listen: false).baseUrls?.productImageUrl}/${widget.product?.image}'),
                 ),
                 Positioned(
                   top: 10,
@@ -43,7 +52,7 @@ class DemoBottomSheet extends StatelessWidget {
                     child: Center(
                       child: IconButton(
                         onPressed: () {},
-                        icon: const  Icon(
+                        icon: const Icon(
                           Icons.favorite,
                           color: Colors.white,
                         ),
@@ -69,20 +78,22 @@ class DemoBottomSheet extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('${product?.name}',style: rubikMedium,),
-                             // Text('${product?.rating}',style: rubikMedium,),
-
+                              Text(
+                                '${widget.product?.name}',
+                                style: rubikMedium,
+                              ),
+                              // Text('${product?.rating}',style: rubikMedium,),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                           child: Text(
-                            '\$ ${product?.price}',
-                            style: rubikMedium,  // Apply highlighting to price if mainPrice is greater than or equal to price
+                            '\$ ${widget.product?.price}',
+                            style:
+                                rubikMedium, // Apply highlighting to price if mainPrice is greater than or equal to price
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -98,7 +109,7 @@ class DemoBottomSheet extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 18.0),
                   child: Text(
-                    '${product?.name}',
+                    '${widget.product?.name}',
                     style: rubikBold,
                   ),
                 ),
@@ -112,7 +123,10 @@ class DemoBottomSheet extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(Images.descriptionleaf),
-                        Text(getTranslated('non_veg', context)!)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('${widget.product?.productType}'),
+                        )
                       ],
                     ),
                   ),
@@ -123,8 +137,9 @@ class DemoBottomSheet extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Text('${product?.description}'),
+                  child: Text('${widget.product?.description}'),
                 )),
+            //widget.product!.variations!.isNotEmpty ?
             Container(
               width: 350,
               height: 220,
@@ -132,53 +147,9 @@ class DemoBottomSheet extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 18.0),
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              getTranslated('size', context)!,
-                              style: rubikMedium,
-                            ),
-                            Text(
-                              getTranslated('select_one', context)!,
-                              style: TextStyle(
-                                  color: Colors.redAccent.withOpacity(1)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 18.0, top: 5),
-                        child: Container(
-                          width: 60,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.redAccent.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: Center(
-                            child: Text(
-                              getTranslated('required', context)!,
-                              style: TextStyle(color: Colors.redAccent),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  ModalSheetRadioButton(
-                    onChanged: (_) {},
-                  ),
-                ],
-              ),
+              child: ModalSheetRadioButton(product: widget.product,)
             ),
+                //: const SizedBox(),
             const SizedBox(
               height: 10,
             ),
@@ -234,7 +205,7 @@ class DemoBottomSheet extends StatelessWidget {
                     ),
                   ),
                   AddOnsCheckBox(
-                    onChanged: (_) {},
+                    product: widget.product,
                   ),
                 ],
               ),
@@ -282,7 +253,7 @@ class DemoBottomSheet extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.redAccent,
                         ),
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           'Add to Cart',
                           style: TextStyle(color: Colors.white, fontSize: 18),
