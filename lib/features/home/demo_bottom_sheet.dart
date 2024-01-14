@@ -22,7 +22,7 @@ class DemoBottomSheet extends StatefulWidget {
 }
 
 class _DemoBottomSheetState extends State<DemoBottomSheet> {
-  int currentIndex = 0; // Assuming this is the current index of the widget
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
@@ -32,7 +32,7 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(20.0),
                       topLeft: Radius.circular(20.0)),
                   child: CustomImageWidget(
@@ -118,7 +118,7 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
                   child: Container(
                     height: 30,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFFF5F3),
+                        color: const Color(0xFFFFF5F3),
                         borderRadius: BorderRadius.circular(50.0)),
                     child: Row(
                       children: [
@@ -140,6 +140,23 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
                   child: Text('${widget.product?.description}'),
                 )),
             //widget.product!.variations!.isNotEmpty ?
+
+            Visibility(
+              visible: widget.product?.variations!= null,
+              child: Container(
+                  width: 350,
+                  height: 220,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Visibility(
+                    visible: true,
+                    child: ModalSheetRadioButton(product: widget.product,),
+                  )
+              ),
+            ),
+            /*(widget.product?.variations!= null) ?
             Container(
               width: 350,
               height: 220,
@@ -147,8 +164,11 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: ModalSheetRadioButton(product: widget.product,)
-            ),
+              child: Visibility(
+                visible: true,
+                child: ModalSheetRadioButton(product: widget.product,),
+              )
+            ) : Placeholder(),*/
                 //: const SizedBox(),
             const SizedBox(
               height: 10,
@@ -160,7 +180,7 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.white,
               ),
-              child: Column(
+              /*child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
@@ -178,11 +198,9 @@ class _DemoBottomSheetState extends State<DemoBottomSheet> {
                     ),
                   ),
                   // here i want to use this widget
-                  BootomSheetCheckBox(
-                    onChanged: (p0) {},
-                  )
+                  BootomSheetCheckBox(product: widget.product),
                 ],
-              ),
+              ),*/
             ),
             const SizedBox(
               height: 10,

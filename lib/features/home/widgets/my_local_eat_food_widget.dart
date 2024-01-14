@@ -7,10 +7,8 @@ import 'package:flutter_restaurant/features/home/demo_bottom_sheet.dart';
 import 'package:flutter_restaurant/features/home/domain/reposotories/product_repo.dart';
 import 'package:flutter_restaurant/features/home/provider/product_provider.dart';
 import 'package:flutter_restaurant/features/splash/providers/splash_provider.dart';
-import 'package:flutter_restaurant/utill/dimensions.dart';
 import 'package:flutter_restaurant/utill/styles.dart';
 import 'package:provider/provider.dart';
-import 'local_eats_bootm_sheet.dart';
 
 class MyLocalEatFoodWidget extends StatefulWidget {
   final Product? product;
@@ -71,16 +69,17 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                   children: [
                     SizedBox(
                       height: 145,
+                      width: 200,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(10)),
                         child: InkWell(
                           onTap: (){
-                            //penFoodDetailsModal();
+                            openFoodDetailsModal(context, widget.product);
                             },
                           child: CustomImageWidget(
                               image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls?.productImageUrl}/${widget.product?.image}',
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
