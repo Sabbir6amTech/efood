@@ -24,8 +24,6 @@ class MyLocalEatFoodWidget extends StatefulWidget {
 
 class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
 
-  //late final Product product;
-
   void openFoodDetailsModal(BuildContext context, Product? selectedProduct) {
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
@@ -97,7 +95,7 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                         ),
                         child:  Center(
                           child: Text(
-                            '${widget.product?.discount}',
+                            '- ${widget.product?.discount}',
                             style: rubikRegular
                           ),
                         ),
@@ -183,18 +181,7 @@ class _MyLocalEatFoodWidgetState extends State<MyLocalEatFoodWidget> {
                         style: rubikMedium,
                       ),
                       const SizedBox(height: 4),
-                      /* const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          //const Icon(Icons.star, color: Colors.yellow),
-                           SizedBox(width: 4),
-                          Text(
-                            '${widget.product?.rating}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),*/
-                      const SizedBox(height: 4),
+
                       Text(
                           '\$ ${widget.product?.price}',
                           style: robotoRegular

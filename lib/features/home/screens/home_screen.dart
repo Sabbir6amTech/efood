@@ -28,14 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> images = [Images.poster, Images.poster1, Images.poster2];
   List<String> images2 = [Images.poster1, Images.poster2, Images.poster];
 
-  final List<ImageData> foodItems = [
-    ImageData(imagePath: Images.cake, title: 'Cake',rating: 4.0,price: 130.0),
-    ImageData(imagePath: Images.chicken, title: 'fish',rating: 4.0,price: 130.0),
-    ImageData(imagePath: Images.lunch1, title: 'coffee',rating: 4.0,price: 130.0),
-    ImageData(imagePath: Images.chinese, title: 'setmenu',rating: 4.0,price: 130.0),
-    // Add more items as needed
-  ];
-
   final TextEditingController _filter = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final SwiperController swiperController = SwiperController();
@@ -49,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  // }
+
 
   @override
   void initState() {
@@ -63,12 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ProductProvider productProvider = Provider.of<ProductProvider>(context,listen: false);
     productProvider.getProductList();
-    // _scrollController.addListener(_onScroll);
-    // page_controller.addListener(() {
-    //   setState(() {
-    //     _currentIndex = page_controller.page!.round();
-    //   });
-    // });
+
   }
 
   @override
@@ -77,13 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // _scrollController.dispose();
     super.dispose();
   }
-
-  // void _onScroll() {
-  //   final offset = _scrollController.offset;
-  //   setState(() {
-  //     _isSearchBarVisible = offset > 0;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
